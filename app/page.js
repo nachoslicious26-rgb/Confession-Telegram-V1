@@ -2,15 +2,16 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
-
 export default function AdminDashboard() {
   const [list, setList] = useState([]);
 
   const fetchPending = async () => {
+    // Dipindahkan ke dalam fungsi fetchPending
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
     const { data } = await supabase
       .from('confessions')
       .select('*')
