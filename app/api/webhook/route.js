@@ -2,16 +2,17 @@ import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
-
 const BAD_WORDS_REGEX = /\b(ds|darkside|bogel|seks|sex|tetek|puki|kote|lancap|sanguin)\b/i;
 const LINK_REGEX = /(t\.me|wa\.me|instagram\.com|twitter\.com|x\.com)\/[a-zA-Z0-9_]+/i;
 
 export async function POST(req) {
   try {
+    // Dipindahkan ke dalam fungsi POST
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
     const body = await req.json();
     const text = body?.message?.text;
 
